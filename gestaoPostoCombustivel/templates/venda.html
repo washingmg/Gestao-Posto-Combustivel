@@ -1,0 +1,112 @@
+{% load static %}
+
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Venda</title>
+  <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+
+    <aside class="sidebar">
+
+      <h2 class="logo">Gestão</h2>
+
+      <nav class="menu">
+
+        <a href="{% url 'venda' %}">
+          <button>Vender</button>
+        </a>
+        
+        <a href="{% url 'reabastecer' %}">
+          <button>Reabastecer</button>
+        </a>
+        
+        <a href="{% url 'relatorio' %}">
+          <button>Relatório</button>
+        </a>
+        
+      </nav>
+
+    </aside>
+
+     <!-- Formulário de venda -->
+    <div class="main-content">
+      
+      <form class="refill-form">
+
+        <h1 class="title">Formulário de Venda</h1>
+      
+        <div class="form-group">
+      
+          <label for="bomba">Selecionar Bomba:</label>
+      
+          <select id="bomba" name="bomba" required>
+            <option value="">-- Escolha uma bomba --</option>
+            <option value="A">Bomba A</option>
+            <option value="B">Bomba B</option>
+            <option value="C">Bomba C</option>
+            <option value="D">Bomba D</option>
+          </select>
+      
+        </div>
+
+        <div class="form-group">
+      
+          <label for="combustivel">Tipo de Combustível:</label>
+      
+          <select id="combustivel" name="combustivel" required>
+            <option value="">-- Escolha o combustível --</option>
+            <option value="etanol">Etanol</option>
+            <option value="diesel">Diesel</option>
+            <option value="gasolina">Gasolina</option>
+            <option value="gasolina">Gasolina Aditivada</option>
+          </select>
+      
+        </div>
+
+        <div class="form-group">
+          <label for="quantidade">Quantidade (litros):</label>
+          <input type="number" id="quantidade" name="quantidade" min="1" required />
+        </div>
+
+        <div class="form-group">
+          
+          <label for="pagamento">Forma de Pagamento:</label>
+          
+          <select id="pagamento" name="pagamento" required>
+            <option value="">-- Escolha a forma --</option>
+            <option value="credito">Cartão de Crédito</option>
+            <option value="debito">Cartão de Débito</option>
+            <option value="dinheiro">Dinheiro</option>
+            <option value="pix">Pix</option>
+          </select>
+        
+        </div>
+
+        <div class="form-group">
+          <label for="valor">Valor Total (R$):</label>
+          
+        </div>
+
+        <button type="submit" class="refill-btn">Confirmar Venda</button>
+
+      </form>
+
+      <!-- botão de voltar -->
+      <div class="back-button" style="margin-top: 30px;">
+        <a href="{% url 'index' %}">
+          &#8592; Voltar para a Tela Principal
+        </a>
+      </div>
+      
+    </div>
+
+  </div> 
+</body>
+</html>

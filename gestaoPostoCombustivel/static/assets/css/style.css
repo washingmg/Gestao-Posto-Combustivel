@@ -1,0 +1,225 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Estilo do corpo da página */
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    display: flex;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  
+  /* Container principal */
+  .container {
+    display: flex;
+    flex: 1;
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    width: 280px;
+    background-color: #1f2937;
+    color: #fff;
+    padding: 60px 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+  }
+  
+  /* Logo da sidebar */
+  .logo {
+    font-size: 24px;
+    margin-bottom: 40px;
+  }
+  
+  /* Menu da sidebar */
+  .menu button {
+    width: 100%;
+    padding: 18px 50px;
+    margin-bottom: 20px;
+    background-color: #374151;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .menu button:hover {
+    background-color: #4b5563;
+  }
+  
+  /* Conteúdo principal */
+  .main-content {
+    flex: 1;
+    padding: 60px;
+    overflow-y: auto;
+  }
+  
+  /* Título principal */
+  .title {
+    font-size: 28px;
+    margin-bottom: 30px;
+  }
+  
+  /* Grid das bombas */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /*2 bombas por linha */
+    gap: 40px 40px; /* Espaço vertical e horizontal maior */
+  }
+  
+  /* Cartão da bomba */
+  .pump-card {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s;
+  }
+  
+  .pump-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  /* Título da bomba */
+  .pump-card h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  /* Níveis de combustível */
+  .levels {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  /* Estilo de cada tipo de combustível */
+  .fuel {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Nome do combustível */
+  .fuel span {
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+  
+  /* Container da barra de progresso */
+  .bar-container {
+    background-color: #e5e7eb;
+    border-radius: 8px;
+    height: 16px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Barra de progresso */
+  .bar {
+    height: 100%;
+    background: linear-gradient(to right, #10b981, #059669);
+    transition: width 0.4s ease;
+    border-radius: 8px;
+  }
+  
+  .bar.normal {
+    background: linear-gradient(to right, #10b981, #059669); /* verde */
+  }
+  
+  .bar.warning {
+    background: linear-gradient(to right, #facc15, #f59e0b); /* amarelo */
+  }
+  
+  .bar.critical {
+    background: linear-gradient(to right, #f87171, #ef4444); /* vermelho */
+  }
+  
+  /* Porcentagem */
+  .percentage {
+    font-size: 13px;
+    color: #555;
+    margin-top: 4px;
+  }
+
+  /* tela reabastecimento */
+
+  .refill-form {
+    max-width: 600px;
+    background-color: #f9f9f9;
+    padding: 2rem;
+    margin-top: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+
+  .refill-btn {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .refill-btn:hover {
+    background-color: #0056b3;
+  }
+
+  /* Responsividade */
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column;
+    }
+  
+    .sidebar {
+      width: 100%;
+      height: auto;
+      position: relative;
+    }
+  
+    .main-content {
+      padding: 20px;
+    }
+  
+    .grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+  }

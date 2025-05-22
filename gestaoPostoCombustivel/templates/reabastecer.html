@@ -1,0 +1,80 @@
+{% load static %}
+
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Reabastecimento</title>
+  <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    
+    <!-- Sidebar fixo -->
+    <aside class="sidebar">
+
+      <h2 class="logo">Gestão</h2>
+
+      <nav class="menu">
+
+        <a href="{% url 'venda' %}">
+          <button>Vender</button>
+        </a>
+        
+        <a href="{% url 'reabastecer' %}">
+          <button>Reabastecer</button>
+        </a>
+        
+        <a href="{% url 'relatorio' %}">
+          <button>Relatório</button>
+        </a>
+        
+      </nav>
+
+    </aside>
+
+     <!-- Formulário de reabastecimento -->
+    <div class="main-content">
+
+      <form class="refill-form">
+
+        <h1 class="title">Solicitação de Reabastecimento</h1>
+      
+        <div class="form-group">
+      
+          <label for="bomba">Selecionar Tanque:</label>
+      
+          <select id="bomba" name="bomba" required>
+            <option value="">-- Escolha um Tanque --</option>
+            <option value="A">Tanque A</option>
+            <option value="B">Tanque B</option>
+            <option value="C">Tanque C</option>
+            <option value="D">Tanque D</option>
+          </select>
+      
+        </div>
+
+        <div class="form-group">
+          <label for="quantidade">Quantidade (litros):</label>
+          <input type="number" id="quantidade" name="quantidade" min="1" required />
+        </div>
+
+        <button type="submit" class="refill-btn">Confirmar Reabastecimento</button>
+      
+      </form>
+
+      <!-- botão de voltar -->
+      <div class="back-button" style="margin-top: 30px;">
+        <a href="{% url 'index' %}">
+          &#8592; Voltar para a Tela Principal
+        </a>
+      </div>
+
+    </div>
+    
+  </div>
+</body>
+</html>
