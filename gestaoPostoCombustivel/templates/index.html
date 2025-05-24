@@ -101,15 +101,16 @@
         // Atualiza a largura da barra
         barElement.style.width = porcentagem + '%';
 
-        // Adiciona a classe de status para a cor
-        if (porcentagem <= 15) {
-          barElement.classList.add('critical');
-        } else if (porcentagem <= 30) {
-          barElement.classList.add('warning');
-        } else {
-          barElement.classList.add('normal'); // Adiciona a classe 'normal' para verde
-        }
-
+       if (porcentagem <= 25) {
+        barElement.classList.add('critical');    // Vermelho (crítico)
+      } else if (porcentagem <= 49) {
+        barElement.classList.add('orange');      // Laranja (atenção)
+      } else if (porcentagem <= 75) {
+        barElement.classList.add('yellow');      // Amarelo (alerta)
+      } else {
+        barElement.classList.add('normal');      // Verde (normal)
+      }
+      
         // Atualiza o texto da porcentagem
         percentageElement.textContent = porcentagem + '%';
       });

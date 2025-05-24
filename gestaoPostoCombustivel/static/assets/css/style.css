@@ -155,16 +155,20 @@ body {
     border-radius: 8px;
 }
 
-.bar.normal {
-    background: linear-gradient(to right, #10b981, #059669); /* verde */
-}
-
-.bar.warning {
-    background: linear-gradient(to right, #facc15, #f59e0b); /* amarelo */
-}
-
 .bar.critical {
-    background: linear-gradient(to right, #f87171, #ef4444); /* vermelho */
+  background-color: #ff3232; 
+}
+
+.bar.orange {
+  background-color: #f19635; 
+}
+
+.bar.yellow {
+  background-color: #ffd43b; 
+}
+
+.bar.normal {
+  background-color: #3eac51; 
 }
 
 /* Porcentagem */
