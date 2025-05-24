@@ -1,7 +1,5 @@
 {% load static %}
 
-
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -9,104 +7,80 @@
   <title>Venda</title>
   <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="{% static 'assets/css/pop-up.css' %}">
 </head>
 <body>
+  {% if messages %}
+    <div class="message-overlay">
+      <div class="message-container">
+        {% for message in messages %}
+          <div class="message-alert {{ message.tags }}">
+            {{ message }}
+            <span class="close-btn">&times;</span>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+
   <div class="container">
-
     <aside class="sidebar">
-
       <h2 class="logo">Gestão</h2>
-
       <nav class="menu">
-
-        <a href="{% url 'venda' %}">
-          <button>Vender</button>
-        </a>
-        
-        <a href="{% url 'reabastecer' %}">
-          <button>Reabastecer</button>
-        </a>
-        
-        <a href="{% url 'relatorio' %}">
-          <button>Relatório</button>
-        </a>
-        
+        <a href="{% url 'venda' %}"><button>Vender</button></a>
+        <a href="{% url 'reabastecer' %}"><button>Reabastecer</button></a>
+        <a href="{% url 'relatorio' %}"><button>Relatório</button></a>
       </nav>
-
     </aside>
 
-     <!-- Formulário de venda -->
     <div class="main-content">
-      
-      <form class="refill-form">
+      <form class="refill-form" method="POST" action="{% url 'processar_venda_action' %}">
+          {% csrf_token %}
+          <h1 class="title">Formulário de Venda</h1>
 
-        <h1 class="title">Formulário de Venda</h1>
-      
-        <div class="form-group">
-      
-          <label for="bomba">Selecionar Bomba:</label>
-      
-          <select id="bomba" name="bomba" required>
-            <option value="">-- Escolha uma bomba --</option>
-            <option value="A">Bomba A</option>
-            <option value="B">Bomba B</option>
-            <option value="C">Bomba C</option>
-            <option value="D">Bomba D</option>
-          </select>
-      
-        </div>
+          <div class="form-group">
+            <label for="id_bomba_selecionada">Selecionar Bomba:</label>
+            <select id="id_bomba_selecionada" name="bomba_selecionada" required>
+              <option value="">-- Escolha uma bomba --</option>
+              {% for bomba_val, bomba_disp in bombas %}
+                <option value="{{ bomba_val }}">{{ bomba_disp }}</option>
+              {% endfor %}
+            </select>
+          </div>
 
-        <div class="form-group">
-      
-          <label for="combustivel">Tipo de Combustível:</label>
-      
-          <select id="combustivel" name="combustivel" required>
-            <option value="">-- Escolha o combustível --</option>
-            <option value="etanol">Etanol</option>
-            <option value="diesel">Diesel</option>
-            <option value="gasolina">Gasolina</option>
-            <option value="gasolina">Gasolina Aditivada</option>
-          </select>
-      
-        </div>
+          <div class="form-group">
+            <label for="id_tipo_combustivel">Tipo de Combustível:</label>
+            <select id="id_tipo_combustivel" name="tipo_combustivel" required>
+              <option value="">-- Escolha o combustível --</option>
+              {% for comb_val, comb_disp in combustiveis %}
+                <option value="{{ comb_val }}">{{ comb_disp }}</option>
+              {% endfor %}
+            </select>
+          </div>
 
-        <div class="form-group">
-          <label for="quantidade">Quantidade (litros):</label>
-          <input type="number" id="quantidade" name="quantidade" min="1" required />
-        </div>
+          <div class="form-group">
+            <label for="id_quantidade_litros">Quantidade (litros):</label>
+            <input type="number" id="id_quantidade_litros" name="quantidade_litros" min="0.01" step="0.01" required />
+          </div>
 
-        <div class="form-group">
-          
-          <label for="pagamento">Forma de Pagamento:</label>
-          
-          <select id="pagamento" name="pagamento" required>
-            <option value="">-- Escolha a forma --</option>
-            <option value="credito">Cartão de Crédito</option>
-            <option value="debito">Cartão de Débito</option>
-            <option value="dinheiro">Dinheiro</option>
-            <option value="pix">Pix</option>
-          </select>
-        
-        </div>
+          <div class="form-group">
+            <label for="id_forma_pagamento">Forma de Pagamento:</label>
+            <select id="id_forma_pagamento" name="forma_pagamento" required>
+              <option value="">-- Escolha a forma --</option>
+              {% for pag_val, pag_disp in pagamentos %}
+                <option value="{{ pag_val }}">{{ pag_disp }}</option>
+              {% endfor %}
+            </select>
+          </div>
 
-        <div class="form-group">
-          <label for="valor">Valor Total (R$):</label>
-          
-        </div>
-
-        <button type="submit" class="refill-btn">Confirmar Venda</button>
-
+          <button type="submit" class="refill-btn">Confirmar Venda</button>
       </form>
 
-      <!-- botão de voltar -->
       <div class="back-button" style="margin-top: 30px;">
-        <a href="{% url 'index' %}">
-          &#8592; Voltar para a Tela Principal
-        </a>
+        <a href="{% url 'index' %}">&#8592; Voltar para a Tela Principal</a>
       </div>
-      
     </div>
-
-  </div> 
+  </div>
+<script src="{% static 'assets/js/pop-up.js' %}"></script>
 </body>
 </html>
