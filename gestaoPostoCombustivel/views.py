@@ -1,16 +1,34 @@
-
 # seu_app/views.py
 from django.shortcuts import render, redirect # redirect pode ser novo
 from django.http import HttpResponse
-from .models import Venda, Estoque  # IMPORTANTE: para acessar seus modelos
 from django.db import transaction    # IMPORTANTE: para transações atômicas
 from django.contrib import messages  # IMPORTANTE: para feedback ao usuário
-from .models import Venda # Não se esqueça de importar o modelo Venda no topo do arquivo
 from decimal import Decimal, InvalidOperation
 from .models import Venda, Estoque, PrecoCombustivel # Adicionado PrecoCombustivel aqui
+from collections import defaultdict # Importe se ainda não estiver importado
+
 # cada view vai ser uma função (no momento) que vai dizer o que vai ser feita, quando a requisição for feita
+
 def index(request):
-    return render(request, 'index.html') # renderiza o template indexhtml
+    estoques = Estoque.objects.all().order_by('bomba')
+
+    bombas_info = defaultdict(list)
+    for estoque_item in estoques: # Renomeei para evitar conflito com o modelo Estoque
+        bombas_info[f"Bomba {estoque_item.bomba}"].append({
+            'tipo': estoque_item.get_combustivel_display(),
+            'quantidade_disponivel': float(estoque_item.quantidade_disponivel), # Converter para float para JS
+            'capacidade_maxima': float(estoque_item.capacidade_maxima) if estoque_item.capacidade_maxima else 0.0
+        })
+    
+    # Transforma o defaultdict de volta para a estrutura que o template espera
+    # Esta estrutura será consumida pelo JavaScript
+    bombas_para_js = [{'nome': bomba_nome, 'combustiveis': combustiveis_list}
+                      for bomba_nome, combustiveis_list in bombas_info.items()]
+
+    context = {
+        'bombas': bombas_para_js # Passamos os dados brutos ou semi-brutos para o template
+    }
+    return render(request, 'index.html', context)
 
 def venda(request):  # Esta é a função que você vai alterar
     bombas = Venda.BOMBA_CHOICES
@@ -22,8 +40,11 @@ def venda(request):  # Esta é a função que você vai alterar
         'pagamentos': pagamentos,
     }
     return render(request, 'venda.html', context) # Agora renderiza com o CONTEXTO
+
+
 def reabastecer(request):
     return render(request, 'reabastecer.html') # renderiza o template reabastecer
+
 
 def relatorio(request):
     return render(request, 'relatorio.html') # renderiza o template relatorio
@@ -125,4 +146,3 @@ def registrar_venda_view(request):
     else:
         # Se o método não for POST, redireciona para a página de venda
         return redirect('venda')
-

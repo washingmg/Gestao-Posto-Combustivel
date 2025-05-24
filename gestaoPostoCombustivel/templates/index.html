@@ -2,12 +2,14 @@
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <title>Sistema de Combustível</title>
   <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 </head>
+
 <body>
   <div class="container">
 
@@ -20,180 +22,100 @@
         <a href="{% url 'venda' %}">
           <button>Vender</button>
         </a>
-        
+
         <a href="{% url 'reabastecer' %}">
           <button>Reabastecer</button>
         </a>
-        
+
         <a href="{% url 'relatorio' %}">
           <button>Relatório</button>
         </a>
-        
+
       </nav>
 
     </aside>
 
     <main class="main-content">
 
-      <h1 class="title" style="text-align: center;" >Gerenciamento de Combustível</h1>
+      <h1 class="title" style="text-align: center;">Gerenciamento de Combustível</h1>
 
       <div class="grid">
 
-        <div class="pump-card">
-          <h3>Bomba A</h3>
-
-          <div class="levels">
-
-            <div class="fuel">
-
-              <span>Etanol</span>
-
-              <div class="bar-container">
-
-                <div class="bar normal" style="width: 80%;"></div>
-
-              </div>
-
-              <span class="percentage">80%</span>
-
-            </div>
-
-            <div class="fuel">
-
-              <span>Gasolina</span>
-
-              <div class="bar-container">
-
-                <div class="bar critical" style="width: 10%;"></div>
-
-              </div>
-
-              <span class="percentage">10%</span>
-
-            </div>
-
-          </div>
-          
-
-        </div>
+        {% for bomba in bombas %}
 
         <div class="pump-card">
 
-          <h3>Bomba B</h3>
+          <h3>{{ bomba.nome }}</h3>
 
           <div class="levels">
 
-            <div class="fuel">
+            {% for combustivel_item in bomba.combustiveis %}
 
-              <span>Diesel</span>
+            <div class="fuel" data-quantidade-disponivel="{{ combustivel_item.quantidade_disponivel }}"
+              data-capacidade-maxima="{{ combustivel_item.capacidade_maxima }}">
 
-              <div class="bar-container">
-
-                <div class="bar" style="width: 98%;"></div>
-                
-              </div>
-
-              <span class="percentage">98%</span>
-
-            </div>
-
-            <div class="fuel">
-
-              <span>Gasolina Aditivada</span>
+              <span>{{ combustivel_item.tipo }}</span>
 
               <div class="bar-container">
 
-                <div class="bar warning" style="width: 25%;"></div>
-
+                <div class="bar"></div>
               </div>
 
-              <span class="percentage">25%</span>
+              <span class="percentage"></span> {# O JS vai preencher isso #}
 
             </div>
+
+            {% endfor %}
 
           </div>
 
         </div>
-
-        <div class="pump-card">
-
-          <h3>Bomba C</h3>
-
-          <div class="levels">
-
-            <div class="fuel">
-
-              <span>Etanol</span>
-
-              <div class="bar-container">
-
-                <div class="bar" style="width: 100%;"></div>
-                
-              </div>
-
-              <span class="percentage">100%</span>
-
-            </div>
-
-            <div class="fuel">
-
-              <span>Gasolina</span>
-
-              <div class="bar-container">
-
-                <div class="bar" style="width: 40%;"></div>
-
-              </div>
-
-              <span class="percentage">40%</span>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="pump-card">
-          <h3>Bomba D</h3>
-
-          <div class="levels">
-
-            <div class="fuel">
-
-              <span>Diesel</span>
-
-              <div class="bar-container">
-
-                <div class="bar" style="width: 90%;"></div>
-                
-              </div>
-
-              <span class="percentage">90%</span>
-
-            </div>
-
-            <div class="fuel">
-
-              <span>Gasolina Aditivada</span>
-
-              <div class="bar-container">
-
-                <div class="bar" style="width: 100%;"></div>
-
-              </div>
-
-              <span class="percentage">100%</span>
-
-            </div>
-
-          </div>
-
-        </div>
-
+        
+        {% endfor %}
+        
       </div>
 
     </main>
 
   </div>
+  <script>
+
+    // Script para calcular e exibir a porcentagem de combustível
+    document.addEventListener('DOMContentLoaded', function () {
+      const fuelElements = document.querySelectorAll('.fuel');
+
+      fuelElements.forEach(fuelElement => {
+        const quantidadeDisponivel = parseFloat(fuelElement.dataset.quantidadeDisponivel);
+        const capacidadeMaxima = parseFloat(fuelElement.dataset.capacidadeMaxima);
+
+        let porcentagem = 0;
+        if (capacidadeMaxima > 0) {
+          porcentagem = (quantidadeDisponivel / capacidadeMaxima) * 100;
+          porcentagem = Math.min(porcentagem, 100); // Garante que não passe de 100%
+          porcentagem = Math.round(porcentagem); // Arredonda para o inteiro mais próximo
+        }
+
+        const barElement = fuelElement.querySelector('.bar');
+        const percentageElement = fuelElement.querySelector('.percentage');
+
+        // Atualiza a largura da barra
+        barElement.style.width = porcentagem + '%';
+
+        // Adiciona a classe de status para a cor
+        if (porcentagem <= 15) {
+          barElement.classList.add('critical');
+        } else if (porcentagem <= 30) {
+          barElement.classList.add('warning');
+        } else {
+          barElement.classList.add('normal'); // Adiciona a classe 'normal' para verde
+        }
+
+        // Atualiza o texto da porcentagem
+        percentageElement.textContent = porcentagem + '%';
+      });
+    });
+
+  </script>
 </body>
+
 </html>
