@@ -20,16 +20,16 @@ O sistema foi desenvolvido com base nos princípios da arquitetura MVT, cuja abo
 
 ## 💻 Tecnologias Utilizadas
 
-1. **Linguagem Principal**: Python
-2. **Banco de Dados**: SQLite
-3. **Front-End**: HTML, CSS e Javascript
-   -- 3.1. Linguagem de marcação: HTML
-   -- 3.2. Estilizaçãao: CSS
-   -- 3.3. Manipulação: Javascript para manipular o HTML e CSS.
-5. **Back-End**: Framework Django (usado para estabelecer a comunicação com o banco de dados)
-6. **Sistema Operacional**: Compatível com Windows e Linux
+1. **Linguagem Principal**: Python  
+2. **Banco de Dados**: SQLite  
+3. **Front-End**: HTML, CSS e Javascript  
+   - **3.1.** Linguagem de marcação: HTML  
+   - **3.2.** Estilização: CSS  
+   - **3.3.** Manipulação: Javascript para manipular o HTML e CSS  
+4. **Back-End**: Framework Django (usado para estabelecer a comunicação com o banco de dados)  
+5. **Sistema Operacional**: Compatível com Windows e Linux  
 
 ---
 
 ## 📂 Estrutura do Projeto
-    (Em desenvolvimento)
+(Em desenvolvimento)
