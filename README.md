@@ -14,14 +14,19 @@ O sistema foi desenvolvido com base nos princípios da arquitetura MVT, cuja abo
 
 ## 🛠️ Funcionalidades
 
-(em processo de realização)
+1. **Realizar venda**:
+   - O sistema será operado sob a perspectiva do funcionário e disponibilizará quatro tipos de combustíveis. Cada cum possui um preço específico. No momento da venda, o funcionário informará a quantidade, em litros, do combustível escolhido. O sistema calculará automaticamente o valor total, multiplicando a quantidade pelo preço correspondente. O pagamento poderá ser realizado em dinheiro, cartão (crédito/débito) e pix.
+2. **Reabastecer**:
+   - Cada bomba contará com dois tanques de combustível. À medida que as vendas forem realizadas, o nível dos tanques será reduzido. O sistema utilizará três cores — verde, amarelo e vermelho — para representar os diferentes níveis de combustível. Quando um tanque atingir o nível vermelho, indicando baixo volume, será necessário realizar o reabastecimento.
+3. **Gerar Relatório**:
+   - Será gerado um relatório em formato de tabela, contendo informações detalhadas sobre as vendas realizadas. Serão exibidos: data e hora da venda, bomba utilizada (A, B, C ou D), tipo de combustível, quantidade vendida em litros, forma de pagamento e o valor a ser pago (calculado com base na quantidade de litros). No canto inferior direito da tabela, será apresentado o valor total arrecadado.
 
 ---
 
 ## 💻 Tecnologias Utilizadas
 
 1. **Linguagem Principal**: Python  
-2. **Banco de Dados**: SQLite  
+2. **Banco de Dados**: SQLite3  
 3. **Front-End**: HTML, CSS e Javascript  
    - **3.1.** Linguagem de marcação: HTML  
    - **3.2.** Estilização: CSS  
