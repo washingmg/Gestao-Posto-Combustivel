@@ -28,19 +28,25 @@
         <a href="{% url 'relatorio' %}">
           <button>Relatório</button>
         </a>
+
+        <a href="{% url 'index' %}">
+          <button>Início</button>
+        </a>
+        
       </nav>
 
     </aside>
 
     <div class="main-content">
-
-      <!-- botão de voltar -->
+ 
+      <!-- botão de voltar 
       <div class="back-button">
         <a href="{% url 'index' %}">
           &#8592; Voltar para a Tela Principal
         </a>
       </div>
-
+      -->
+      
       <h1>Relatório de Vendas</h1>
 
       {% if vendas %}
@@ -60,7 +66,7 @@
               <tr>
                 <td>{{ venda.data|date:"d/m/Y H:i" }}</td>
                 <td>{{ venda.bomba }}</td>
-                <td>{{ venda.get_combustivel_display }}</td>
+                <td>{{ venda.combustivel.get_id_combustivel_display }}</td>
                 <td>{{ venda.quantidade }}</td>
                 <td>{{ venda.get_pagamento_display }}</td>
                 <td>R$ {{ venda.valor }}</td>

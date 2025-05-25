@@ -4,23 +4,84 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Venda</title>
+  <title>Registrar Venda</title>
   <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-   <link rel="stylesheet" href="{% static 'assets/css/pop-up.css' %}">
+  <style>
+    /* Estilos básicos para o message-overlay (coloque no seu style.css depois) */
+    .message-overlay {
+      position: fixed; /* Ou absolute, dependendo do seu layout pai */
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente */
+      display: none; /* Começa escondido */
+      justify-content: center;
+      align-items: center;
+      z-index: 1000; /* Para ficar por cima de outros elementos */
+    }
+    .message-item-wrapper {
+      background-color: #fff; /* Fundo da caixa de mensagem */
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      min-width: 300px; /* Largura mínima */
+      max-width: 90%; /* Largura máxima */
+      position: relative; /* Para o botão de fechar posicionar-se corretamente */
+    }
+    .message-item-wrapper p {
+      margin: 0 0 15px 0;
+      color: #333;
+    }
+    .message-item-wrapper .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      font-size: 1.2em;
+      cursor: pointer;
+      color: #777;
+    }
+    /* Estilos para diferentes tipos de mensagem (opcional, mas recomendado) */
+    .message-content.success p { color: green; }
+    .message-content.error p { color: red; }
+    .message-content.warning p { color: orange; }
+    .message-content.info p { color: blue; }
+  </style>
+  
 </head>
 <body>
+
+  {% comment %} Bloco para exibir mensagens do Django usando a estrutura para o pop-up.js {% endcomment %}
   {% if messages %}
-    <div class="message-overlay">
-      <div class="message-container">
-        {% for message in messages %}
-          <div class="message-alert {{ message.tags }}">
-            {{ message }}
-            <span class="close-btn">&times;</span>
+    <div class="message-overlay" id="customMessageOverlay" style="display: none;"> {% for message in messages %}
+        <div class="message-item-wrapper">
+          <div class="message-content {{ message.tags }}">
+            <p>{{ message }}</p>
+            <button type="button" class="close-btn" aria-label="Fechar">X</button>
           </div>
-        {% endfor %}
-      </div>
+        </div>
+        {% comment %} Se você só quer mostrar uma mensagem por vez no overlay, coloque o loop dentro do wrapper ou ajuste o JS {% endcomment %}
+      {% endfor %}
     </div>
+
+    <script>
+      // Script para MOSTRAR o overlay se ele tiver mensagens
+      document.addEventListener('DOMContentLoaded', function() {
+        const overlay = document.getElementById('customMessageOverlay');
+        const messageItems = overlay ? overlay.querySelectorAll('.message-item-wrapper') : [];
+
+        if (overlay && messageItems.length > 0) {
+          overlay.style.display = 'flex'; // Usando 'flex' para centralizar com os estilos de exemplo acima
+          // Se você quer que o pop-up.js controle o timeout a partir daqui,
+          // certifique-se que o pop-up.js é carregado DEPOIS deste script
+          // ou que ele também usa DOMContentLoaded.
+        }
+      });
+    </script>
   {% endif %}
 
   <div class="container">
@@ -30,7 +91,7 @@
         <a href="{% url 'venda' %}"><button>Vender</button></a>
         <a href="{% url 'reabastecer' %}"><button>Reabastecer</button></a>
         <a href="{% url 'relatorio' %}"><button>Relatório</button></a>
-      </nav>
+        <a href="{% url 'index' %}"><button>Início</button></a>
     </aside>
 
     <div class="main-content">
@@ -42,8 +103,8 @@
             <label for="id_bomba_selecionada">Selecionar Bomba:</label>
             <select id="id_bomba_selecionada" name="bomba_selecionada" required>
               <option value="">-- Escolha uma bomba --</option>
-              {% for bomba_val, bomba_disp in bombas %}
-                <option value="{{ bomba_val }}">{{ bomba_disp }}</option>
+              {% for bomba_item in lista_de_bombas %}
+                <option value="{{ bomba_item.id_bomba }}">{{ bomba_item }}</option>
               {% endfor %}
             </select>
           </div>
@@ -52,8 +113,8 @@
             <label for="id_tipo_combustivel">Tipo de Combustível:</label>
             <select id="id_tipo_combustivel" name="tipo_combustivel" required>
               <option value="">-- Escolha o combustível --</option>
-              {% for comb_val, comb_disp in combustiveis %}
-                <option value="{{ comb_val }}">{{ comb_disp }}</option>
+              {% for combustivel_item in lista_de_combustiveis %}
+                <option value="{{ combustivel_item.id_combustivel }}">{{ combustivel_item.get_id_combustivel_display }}</option>
               {% endfor %}
             </select>
           </div>
@@ -67,11 +128,13 @@
             <label for="id_forma_pagamento">Forma de Pagamento:</label>
             <select id="id_forma_pagamento" name="forma_pagamento" required>
               <option value="">-- Escolha a forma --</option>
-              {% for pag_val, pag_disp in pagamentos %}
-                <option value="{{ pag_val }}">{{ pag_disp }}</option>
+              {% for valor_interno, nome_exibicao in formas_de_pagamento %}
+                <option value="{{ valor_interno }}">{{ nome_exibicao }}</option>
               {% endfor %}
             </select>
           </div>
+
+          {% comment %} O campo de input para VALOR TOTAL FOI REMOVIDO DAQUI {% endcomment %}
 
           <button type="submit" class="refill-btn">Confirmar Venda</button>
       </form>
@@ -81,6 +144,7 @@
       </div>
     </div>
   </div>
-<script src="{% static 'assets/js/pop-up.js' %}"></script>
+
+  <script src="{% static 'assets/js/pop-up.js' %}"></script>
 </body>
 </html>
