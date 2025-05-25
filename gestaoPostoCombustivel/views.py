@@ -146,3 +146,17 @@ def registrar_venda_view(request):
     else:
         # Se o método não for POST, redireciona para a página de venda
         return redirect('venda')
+# views.py
+
+def relatorio(request):
+    vendas = Venda.objects.all().order_by('-data')
+    receita_total = sum(venda.valor for venda in vendas)
+
+    estoques = Estoque.objects.all().order_by('bomba')
+
+    context = {
+        'vendas': vendas,
+        'receita_total': receita_total,
+        # 'estoques': estoques,  # adiciona os dados do estoque aqui
+    }
+    return render(request, 'relatorio.html', context)

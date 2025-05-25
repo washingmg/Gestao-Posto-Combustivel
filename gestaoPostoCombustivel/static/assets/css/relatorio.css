@@ -1,0 +1,45 @@
+/* Alternância de cor nas linhas da tabela */
+.tabela-vendas tbody tr:nth-child(odd) {
+  background-color: #86f1ce;
+}
+
+.tabela-vendas tbody tr:nth-child(even) {
+  background-color: #ffffff;
+}
+
+/* Estilo para a tabela */
+.tabela-vendas {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 80px; /* espaço para a receita fixa */
+}
+
+.tabela-vendas th, .tabela-vendas td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+.tabela-vendas th {
+  background-color: #ddd;
+}
+
+.receita-total {
+  position: fixed;
+  bottom: 0;
+  left: 280px;
+  right: 0;
+  width: calc(100% - 280px);
+  background-color: #ffffff;
+  padding: 15px 30px;
+  padding-right: 75px;
+  border-top: 2px solid #ccc;
+  font-size: 18px;
+  font-weight: bold;
+  z-index: 1000;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+
+  display: flex;
+  justify-content: space-between; /* separa os elementos nas extremidades */
+  align-items: center;
+}

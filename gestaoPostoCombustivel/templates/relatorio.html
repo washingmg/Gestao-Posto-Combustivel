@@ -1,7 +1,5 @@
 {% load static %}
 
-
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -9,47 +7,79 @@
   <title>Relatório</title>
   <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'assets/css/relatorio.css' %}">
 </head>
 <body>
-    <div class="container">
+  <div class="container">
 
-        <aside class="sidebar">
+    <aside class="sidebar">
 
-        <h2 class="logo">Gestão</h2>
+      <h2 class="logo">Gestão</h2>
 
-        <nav class="menu">
+      <nav class="menu">
+        <a href="{% url 'venda' %}">
+          <button>Vender</button>
+        </a>
 
-            <a href="{% url 'venda' %}">
-            <button>Vender</button>
-            </a>
-            
-            <a href="{% url 'reabastecer' %"}>
-            <button>Reabastecer</button>
-            </a>
-            
-            <a href="{% url 'relatorio' %}">
-            <button>Relatório</button>
-            </a>
-            
-        </nav>
+        <a href="{% url 'reabastecer' %}">
+          <button>Reabastecer</button>
+        </a>
 
-        </aside>
+        <a href="{% url 'relatorio' %}">
+          <button>Relatório</button>
+        </a>
+      </nav>
 
-        <div class="main-content">
-            
-            <h1 class="title" style="width: 700px; text-align: justify; color: rgb(57, 52, 52);">⚠️ Esta funcionalidade ainda não está disponível no momento. Em breve, ela será adicionada em uma próxima atualização.</h1>
+    </aside>
 
-            <!-- botão de voltar -->
-            <div class="back-button">
-                <a href="{% url 'index' %}">
-                &#8592; Voltar para a Tela Principal
-                </a>
-            </div>
+    <div class="main-content">
 
+      <!-- botão de voltar -->
+      <div class="back-button">
+        <a href="{% url 'index' %}">
+          &#8592; Voltar para a Tela Principal
+        </a>
+      </div>
+
+      <h1>Relatório de Vendas</h1>
+
+      {% if vendas %}
+        <table class="tabela-vendas">
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Bomba</th>
+              <th>Combustível</th>
+              <th>Quantidade (L)</th>
+              <th>Pagamento</th>
+              <th>Valor (R$)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for venda in vendas %}
+              <tr>
+                <td>{{ venda.data|date:"d/m/Y H:i" }}</td>
+                <td>{{ venda.bomba }}</td>
+                <td>{{ venda.get_combustivel_display }}</td>
+                <td>{{ venda.quantidade }}</td>
+                <td>{{ venda.get_pagamento_display }}</td>
+                <td>R$ {{ venda.valor }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <div class="receita-total">
+          <span>Receita Total:</span>
+          <strong>R$ {{ receita_total }}</strong>
         </div>
 
-    </div>
+      {% else %}
+        <p>Nenhuma venda registrada até o momento.</p>
+      {% endif %}
 
     </div>
+
+  </div>
 </body>
 </html>
