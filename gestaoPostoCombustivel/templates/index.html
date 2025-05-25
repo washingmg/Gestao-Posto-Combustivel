@@ -78,45 +78,7 @@
     </main>
 
   </div>
-  <script>
-
-    // Script para calcular e exibir a porcentagem de combustível
-    document.addEventListener('DOMContentLoaded', function () {
-      const fuelElements = document.querySelectorAll('.fuel');
-
-      fuelElements.forEach(fuelElement => {
-        const quantidadeDisponivel = parseFloat(fuelElement.dataset.quantidadeDisponivel);
-        const capacidadeMaxima = parseFloat(fuelElement.dataset.capacidadeMaxima);
-
-        let porcentagem = 0;
-        if (capacidadeMaxima > 0) {
-          porcentagem = (quantidadeDisponivel / capacidadeMaxima) * 100;
-          porcentagem = Math.min(porcentagem, 100); // Garante que não passe de 100%
-          porcentagem = Math.round(porcentagem); // Arredonda para o inteiro mais próximo
-        }
-
-        const barElement = fuelElement.querySelector('.bar');
-        const percentageElement = fuelElement.querySelector('.percentage');
-
-        // Atualiza a largura da barra
-        barElement.style.width = porcentagem + '%';
-
-       if (porcentagem <= 25) {
-        barElement.classList.add('critical');    // Vermelho (crítico)
-      } else if (porcentagem <= 49) {
-        barElement.classList.add('orange');      // Laranja (atenção)
-      } else if (porcentagem <= 75) {
-        barElement.classList.add('yellow');      // Amarelo (alerta)
-      } else {
-        barElement.classList.add('normal');      // Verde (normal)
-      }
-      
-        // Atualiza o texto da porcentagem
-        percentageElement.textContent = porcentagem + '%';
-      });
-    });
-
-  </script>
+  <script src="{% static 'assets/js/percentil_combustivel.js' %}"></script>
 </body>
 
 </html>
