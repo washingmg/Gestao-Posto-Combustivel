@@ -1,21 +1,18 @@
 # gestaoPostoCombustivel/views.py
 
 from django.shortcuts import render, redirect
-from django.http import HttpResponse # Pode ser útil para debug, mas não essencial aqui
+from django.http import HttpResponse 
 from django.db import transaction
 from django.contrib import messages
 from decimal import Decimal, InvalidOperation
 
-# Importando os novos modelos e as constantes de CHOICES do models.py
 from .models import (
     Venda,
     Tanque,
     Bomba,
     PrecoCombustivel,
-    PAGAMENTO_CHOICES # Assumindo que PAGAMENTO_CHOICES está definido em models.py
-                      # ou você pode defini-lo aqui se preferir.
+    PAGAMENTO_CHOICES
 )
-# from collections import defaultdict # Não estamos mais usando no index da forma anterior
 
 def index(request):
     """
@@ -24,12 +21,6 @@ def index(request):
     """
     tanques = Tanque.objects.select_related('combustivel').all().order_by('combustivel__id_combustivel')
     
-    # Para o JavaScript que você tinha (se ainda for usar algo similar):
-    # Você precisará reconstruir a lógica de 'bombas_para_js' baseando-se
-    # nos modelos 'Bomba' e 'Tanque', e como eles se relacionam com 'PrecoCombustivel'.
-    # Por exemplo, para cada bomba, listar os combustíveis que ela dispensa e o nível do tanque correspondente.
-    
-    # Exemplo simples para passar ao template:
     bombas_com_tanques = []
     for bomba_obj in Bomba.objects.prefetch_related('combustiveis_disponiveis__tanque').all().order_by('id_bomba'):
         info_bomba = {'nome': str(bomba_obj), 'combustiveis': []}
@@ -37,7 +28,7 @@ def index(request):
             try:
                 # Acessando o tanque através do OneToOneField reverso de PrecoCombustivel para Tanque
                 # O related_name padrão para OneToOneField é o nome do modelo em minúsculas, então 'tanque'.
-                tanque_obj = combustivel_preco_obj.tanque # Acessa o Tanque associado a este PrecoCombustivel
+                tanque_obj = combustivel_preco_obj.tanque 
                 info_bomba['combustiveis'].append({
                     'tipo': combustivel_preco_obj.get_id_combustivel_display(),
                     'quantidade_disponivel': float(tanque_obj.quantidade_disponivel),
@@ -55,7 +46,7 @@ def index(request):
 
     context = {
         'info_bombas_tanques': bombas_com_tanques,
-         'bombas': bombas_com_tanques, # <- esta linha causa o erro
+         'bombas': bombas_com_tanques, 
     }
     return render(request, 'index.html', context)
 
@@ -67,7 +58,6 @@ def venda(request):
     """
     lista_de_bombas = Bomba.objects.all().order_by('id_bomba')
     lista_de_combustiveis = PrecoCombustivel.objects.all().order_by('id_combustivel')
-    # PAGAMENTO_CHOICES vem do models.py ou é definido aqui
 
     context = {
         'lista_de_bombas': lista_de_bombas,
@@ -83,14 +73,14 @@ def registrar_venda_view(request):
     cria o registro de Venda e atualiza o estoque no Tanque.
     """
     if request.method == 'POST':
-        bomba_id_selecionada = request.POST.get('bomba_selecionada') # Name do select de bomba no HTML
-        combustivel_id_selecionado = request.POST.get('tipo_combustivel') # Name do select de combustível no HTML
+        bomba_id_selecionada = request.POST.get('bomba_selecionada') 
+        combustivel_id_selecionado = request.POST.get('tipo_combustivel') 
         quantidade_vendida_str = request.POST.get('quantidade_litros')
         forma_pagamento_selecionada = request.POST.get('forma_pagamento')
 
         if not all([bomba_id_selecionada, combustivel_id_selecionado, quantidade_vendida_str, forma_pagamento_selecionada]):
             messages.error(request, "Todos os campos obrigatórios devem ser preenchidos!")
-            return redirect('venda') # 'venda' é o name da URL da view venda
+            return redirect('venda') 
 
         try:
             quantidade_vendida = Decimal(quantidade_vendida_str)
@@ -126,8 +116,8 @@ def registrar_venda_view(request):
 
                 # Criar o registro de Venda
                 Venda.objects.create(
-                    bomba=bomba_obj,             # Passa a instância do modelo Bomba
-                    combustivel=combustivel_obj, # Passa a instância do modelo PrecoCombustivel
+                    bomba=bomba_obj,             
+                    combustivel=combustivel_obj, 
                     quantidade=quantidade_vendida,
                     pagamento=forma_pagamento_selecionada,
                     valor=valor_total_calculado
@@ -156,18 +146,66 @@ def registrar_venda_view(request):
             messages.error(request, f"Ocorreu um erro inesperado ao processar a venda: {e}")
             return redirect('venda')
     else:
-        # Se o método não for POST, redireciona para a página de venda
         return redirect('venda')
 
 
 def reabastecer(request):
     """
-    Placeholder para a funcionalidade de reabastecer.
-    Precisará de um formulário e lógica para adicionar quantidade ao Tanque.
+    Exibe o formulário de reabastecimento e processa os dados.
     """
-    # Lógica para formulário de reabastecimento e atualização do Tanque virá aqui.
-    return render(request, 'reabastecer.html') # Supõe que você tem um reabastecer.html
-
+    tanques = Tanque.objects.select_related('combustivel').all().order_by('combustivel__id_combustivel')
+    
+    if request.method == 'POST':
+        combustivel_id = request.POST.get('combustivel')
+        quantidade_str = request.POST.get('quantidade')
+        
+        if not all([combustivel_id, quantidade_str]):
+            messages.error(request, "Todos os campos obrigatórios devem ser preenchidos!")
+            return redirect('reabastecer')
+        
+        try:
+            quantidade = Decimal(quantidade_str)
+            if quantidade <= 0:
+                messages.error(request, "A quantidade deve ser maior que zero.")
+                return redirect('reabastecer')
+        except InvalidOperation:
+            messages.error(request, "Quantidade inválida. Use um número válido.")
+            return redirect('reabastecer')
+        
+        try:
+            with transaction.atomic():
+                tanque = Tanque.objects.select_for_update().get(combustivel_id=combustivel_id)
+                capacidade_disponivel = tanque.capacidade_maxima - tanque.quantidade_disponivel
+                
+                if quantidade > capacidade_disponivel:
+                    messages.error(
+                        request,
+                        f"Quantidade excede a capacidade disponível. "
+                        f"Máximo possível: {capacidade_disponivel:.2f}L"
+                    )
+                    return redirect('reabastecer')
+                
+                tanque.quantidade_disponivel += quantidade
+                tanque.save()
+                
+                messages.success(
+                    request,
+                    f"Tanque de {tanque.combustivel.get_id_combustivel_display()} reabastecido com {quantidade}L. "
+                    f"Novo nível: {tanque.quantidade_disponivel:.2f}L/{tanque.capacidade_maxima:.2f}L"
+                )
+                return redirect('reabastecer')
+                
+        except Tanque.DoesNotExist:
+            messages.error(request, "Tanque não encontrado.")
+            return redirect('reabastecer')
+        except Exception as e:
+            messages.error(request, f"Ocorreu um erro ao reabastecer: {str(e)}")
+            return redirect('reabastecer')
+    
+    context = {
+        'tanques': tanques,
+    }
+    return render(request, 'reabastecer.html', context)
 
 def relatorio(request):
     """
@@ -185,7 +223,3 @@ def relatorio(request):
         'status_tanques': status_tanques,
     }
     return render(request, 'relatorio.html', context)
-
-# A view 'formulario_venda_view' provavelmente não é mais necessária
-# se a view 'venda' já faz o trabalho de exibir o formulário com contexto.
-# Você pode removê-la se não houver URLs apontando para ela.

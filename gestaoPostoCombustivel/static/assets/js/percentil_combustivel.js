@@ -1,5 +1,3 @@
-// Script para calcular e exibir a porcentagem de combustível
-
 document.addEventListener('DOMContentLoaded', function () {
     const fuelElements = document.querySelectorAll('.fuel');
 

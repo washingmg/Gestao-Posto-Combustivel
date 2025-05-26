@@ -1,0 +1,109 @@
+.message-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.message-box {
+    padding: 20px;
+    border-radius: 5px;
+    width: 80%;
+    max-width: 400px;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.message-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.message-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.close-btn {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: #000;
+}
+
+.content-wrapper {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.refill-form {
+    flex: 1;
+}
+
+.tank-info-simple {
+    width: 310px;
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.tank-info-simple h3 {
+    padding-top: 60px;
+    height: 50%x;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #333;
+}
+
+.tank-list-simple {
+    display: grid;
+    gap: 10px;
+}
+
+.tank-item-simple {
+    display: flex;
+    justify-content: space-between;
+    background: white;
+    padding: 8px 10px;
+    border-radius: 4px;
+    font-size: 13px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.tank-name {
+    font-weight: 600;
+}
+
+.tank-level {
+    color: #555;
+}
+
+.back-button {
+    margin-top: 20px;
+}
+
+.back-button a {
+    color: #0066cc;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.back-button a:hover {
+    text-decoration: underline;
+}

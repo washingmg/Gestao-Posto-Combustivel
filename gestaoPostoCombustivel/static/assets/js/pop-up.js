@@ -1,4 +1,3 @@
-// Fechar mensagens ao clicar no botão X
 document.addEventListener('DOMContentLoaded', function() {
     const closeButtons = document.querySelectorAll('.close-btn');
     closeButtons.forEach(button => {
@@ -8,7 +7,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     });
     
-    // Fechar automaticamente após 5 segundos
     const messageOverlay = document.querySelector('.message-overlay');
     if (messageOverlay) {
     setTimeout(() => {
