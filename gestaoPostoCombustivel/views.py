@@ -26,8 +26,7 @@ def index(request):
         info_bomba = {'nome': str(bomba_obj), 'combustiveis': []}
         for combustivel_preco_obj in bomba_obj.combustiveis_disponiveis.all():
             try:
-                # Acessando o tanque através do OneToOneField reverso de PrecoCombustivel para Tanque
-                # O related_name padrão para OneToOneField é o nome do modelo em minúsculas, então 'tanque'.
+
                 tanque_obj = combustivel_preco_obj.tanque 
                 info_bomba['combustiveis'].append({
                     'tipo': combustivel_preco_obj.get_id_combustivel_display(),
