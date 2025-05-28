@@ -80,6 +80,8 @@ A seguir, estão representações visuais das telas desenvolvidas para o sistema
 ![Tela de Gerenciamento de Combustível](imagens/TelaGerênciamentodeCombustível.png)  
 *Figura 4 - Tela de Gerenciamento de Combustível*
 
+O sistema possui quatro cores para representar os níveis dos combustíveis, como: **vermelho** (crítico), **laranja** (abaixo da média - 50%), **amarelo** (maior ou igual à 50%) e **verde** (acima de 80%).
+
 ---
 
 ## 🧪 Desenvolvimento Ágil
