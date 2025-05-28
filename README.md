@@ -62,7 +62,7 @@ A seguir, estão representações visuais das telas desenvolvidas para o sistema
 
 ### 🔄 Reabastecer
 
-![Tela de Reabastecimento](imagens/reabastecimento.png)  
+![Tela de Reabastecimento](imagens/TelaReabastecimento.png)  
 *Figura 1 - Tela de Reabastecimento*
 
 ### 📊 Relatório
