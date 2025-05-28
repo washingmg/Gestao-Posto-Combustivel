@@ -1,5 +1,4 @@
 # faz os direcionamentos para o app gestaoPostoCombustivel
-
 from django.urls import path
 from gestaoPostoCombustivel import views # importar a view home
 

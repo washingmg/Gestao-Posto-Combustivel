@@ -7,55 +7,11 @@
   <title>Registrar Venda</title>
   <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    /* Estilos básicos para o message-overlay (coloque no seu style.css depois) */
-    .message-overlay {
-      position: fixed; /* Ou absolute, dependendo do seu layout pai */
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente */
-      display: none; /* Começa escondido */
-      justify-content: center;
-      align-items: center;
-      z-index: 1000; /* Para ficar por cima de outros elementos */
-    }
-    .message-item-wrapper {
-      background-color: #fff; /* Fundo da caixa de mensagem */
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      text-align: center;
-      min-width: 300px; /* Largura mínima */
-      max-width: 90%; /* Largura máxima */
-      position: relative; /* Para o botão de fechar posicionar-se corretamente */
-    }
-    .message-item-wrapper p {
-      margin: 0 0 15px 0;
-      color: #333;
-    }
-    .message-item-wrapper .close-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: none;
-      border: none;
-      font-size: 1.2em;
-      cursor: pointer;
-      color: #777;
-    }
-    /* Estilos para diferentes tipos de mensagem (opcional, mas recomendado) */
-    .message-content.success p { color: green; }
-    .message-content.error p { color: red; }
-    .message-content.warning p { color: orange; }
-    .message-content.info p { color: blue; }
-  </style>
-  
+  <link rel="stylesheet" href="{% static 'assets/css/venda.css' %}">
+
 </head>
 <body>
 
-  {% comment %} Bloco para exibir mensagens do Django usando a estrutura para o pop-up.js {% endcomment %}
   {% if messages %}
     <div class="message-overlay" id="customMessageOverlay" style="display: none;"> {% for message in messages %}
         <div class="message-item-wrapper">
@@ -64,7 +20,6 @@
             <button type="button" class="close-btn" aria-label="Fechar">X</button>
           </div>
         </div>
-        {% comment %} Se você só quer mostrar uma mensagem por vez no overlay, coloque o loop dentro do wrapper ou ajuste o JS {% endcomment %}
       {% endfor %}
     </div>
 
@@ -75,10 +30,7 @@
         const messageItems = overlay ? overlay.querySelectorAll('.message-item-wrapper') : [];
 
         if (overlay && messageItems.length > 0) {
-          overlay.style.display = 'flex'; // Usando 'flex' para centralizar com os estilos de exemplo acima
-          // Se você quer que o pop-up.js controle o timeout a partir daqui,
-          // certifique-se que o pop-up.js é carregado DEPOIS deste script
-          // ou que ele também usa DOMContentLoaded.
+          overlay.style.display = 'flex'; 
         }
       });
     </script>
@@ -133,8 +85,6 @@
               {% endfor %}
             </select>
           </div>
-
-          {% comment %} O campo de input para VALOR TOTAL FOI REMOVIDO DAQUI {% endcomment %}
 
           <button type="submit" class="refill-btn">Confirmar Venda</button>
       </form>

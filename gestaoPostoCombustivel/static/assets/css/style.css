@@ -1,11 +1,9 @@
-/* Reset básico */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Estilo do corpo da página */
 body {
     font-family: 'Inter', sans-serif;
     background-color: #f8f9fa;
@@ -15,13 +13,11 @@ body {
     overflow-x: hidden;
 }
 
-/* Container principal */
 .container {
     display: flex;
     flex: 1;
 }
 
-/* Sidebar */
 .sidebar {
     width: 280px;
     background-color: #1f2937;
@@ -30,18 +26,16 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: sticky; /* Sticky para que ela fixe ao rolar */
+    position: sticky; 
     top: 0;
-    height: 100vh; /* Altura total da viewport */
+    height: 100vh; 
 }
 
-/* Logo da sidebar */
 .logo {
     font-size: 24px;
     margin-bottom: 40px;
 }
 
-/* Menu da sidebar */
 .menu button {
     width: 100%;
     padding: 18px 50px;
@@ -60,98 +54,79 @@ body {
     background-color: #4b5563;
 }
 
-/* Conteúdo principal */
 .main-content {
     flex: 1;
     padding: 60px;
-    overflow-y: auto; /* Permite rolagem se o conteúdo for maior que a tela */
+    overflow-y: auto; 
 }
 
-/* Título principal */
 .title {
     font-size: 28px;
     margin-bottom: 30px;
 }
 
-/* Grid das bombas */
 .grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 bombas por linha */
-    gap: 40px 40px; /* Espaço vertical e horizontal maior */
-    justify-items: center; /* Centraliza os itens na grid */
-    align-items: start; /* Alinha os itens ao topo na grid, útil se cards tiverem alturas diferentes */
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 40px 40px; 
+    justify-items: center; 
+    align-items: start; 
 }
 
-/* Cartão da bomba */
 .pump-card {
     background-color: #fff;
     border-radius: 12px;
     padding: 20px;
     width: 100%;
-    max-width: 400px; /* Limita a largura dos cards para não ficarem muito grandes */
+    max-width: 400px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
     transition: transform 0.2s;
-    /* Adicione display: flex e flex-direction: column para organizar o conteúdo interno */
     display: flex;
     flex-direction: column;
-    gap: 15px; /* Espaçamento entre h3 e levels */
+    gap: 15px; 
 }
 
 .pump-card:hover {
     transform: translateY(-5px);
 }
 
-/* Título da bomba */
 .pump-card h3 {
     font-size: 20px;
-    margin-bottom: 10px; /* Mantido, mas 'gap' no .pump-card também ajuda */
+    margin-bottom: 10px; 
 }
 
-/* Níveis de combustível */
 .levels {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-/* Estilo de cada tipo de combustível */
 .fuel {
     display: flex;
     flex-direction: column;
-    /* Alinhar nome do combustível, barra e porcentagem */
     align-items: flex-start;
-    gap: 5px; /* Espaçamento entre elementos dentro do .fuel */
+    gap: 5px; 
 }
 
-/* Nome do combustível */
 .fuel span {
     font-size: 14px;
-    /* margin-bottom: 4px; -- removido, 'gap' no .fuel resolve */
 }
 
-/* Container da barra de progresso */
 .bar-container {
-    background-color: #e5e7eb; /* Cor cinza (base) */
+    background-color: #e5e7eb; 
     border-radius: 8px;
     height: 16px;
     width: 100%;
-    position: relative; /* FUNDAMENTAL: contexto para o filho absoluto */
+    position: relative; 
     overflow: hidden;
 }
 
-/* Barra de progresso (parte colorida) */
 .bar {
-    height: 100%; /* Preenche a altura do pai (bar-container) */
-    /* REMOVIDO: background padrão aqui. Será definido pelas classes de status. */
-    /* background: linear-gradient(to right, #10b981, #059669); */
-
-    /* ESSAS SÃO AS PROPRIEDADES CHAVE PARA POSICIONAMENTO */
-    position: absolute; /* Coloca a barra colorida *sobre* o container */
+    height: 100%; 
+    position: absolute; 
     top: 0;
     left: 0;
-    /* width será definida pelo estilo inline do Django (Ex: style="width: 80%;") */
-
-    transition: width 0.4s ease; /* Animação suave na mudança de largura */
+    transition: width 0.4s ease; 
     border-radius: 8px;
 }
 
@@ -223,7 +198,6 @@ body {
     background-color: #0056b3;
 }
 
-/* Responsividade */
 @media (max-width: 768px) {
     .container {
         flex-direction: column;
@@ -232,7 +206,7 @@ body {
     .sidebar {
         width: 100%;
         height: auto;
-        position: relative; /* Mudar de sticky para relative em telas pequenas */
+        position: relative; 
     }
 
     .main-content {
@@ -240,7 +214,7 @@ body {
     }
 
     .grid {
-        grid-template-columns: 1fr; /* Uma coluna em telas pequenas */
+        grid-template-columns: 1fr; 
         gap: 40px;
     }
 }
