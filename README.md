@@ -95,12 +95,12 @@ Utilizamos o framework **Scrum** com o auxílio das ferramentas:
 
 ## 📚 Referências
 
-- PRESSMAN, Roger S. Engenharia de Software: uma abordagem profissional. 8. ed. Porto Alegre: AMGH, 2016.
-- SOMMERVILLE, Ian. Engenharia de Software. 10. ed. São Paulo: Pearson Education do Brasil, 2019.
-- FOWLER, Martin. Padrões de arquitetura de aplicações corporativas. 2. ed. Rio de Janeiro: Alta Books, 2021.
-- DJANGO SOFTWARE FOUNDATION. Django Documentation. Disponível em: https://docs.djangoproject.com/. Acesso em: 26 maio 2025.
-- MARTINS, G. A.; THEÓPHILO, C. R. Metodologia da investigação científica para ciências sociais aplicadas. 2. ed. São Paulo: Atlas, 2009.
-- SANTOS, Jhony; SILVA, Karleandro; FARIAS, Lucas; CARLOS, Rian; GAIA, Washington. Sistema de Passagens Aéreas. Universidade Federal de Alagoas, Campus Arapiraca — SEDE, 2025. Disponível em: https://github.com/washingmg/Gestao-Posto-Combustivel. Acesso em: 27 maio 2025.
+- PRESSMAN, Roger S. _Engenharia de Software: uma abordagem profissional._ 8. ed. Porto Alegre: AMGH, 2016.
+- SOMMERVILLE, Ian. _Engenharia de Software._ 10. ed. São Paulo: Pearson Education do Brasil, 2019.
+- FOWLER, Martin. _Padrões de arquitetura de aplicações corporativas._ 2. ed. Rio de Janeiro: Alta Books, 2021.
+- DJANGO SOFTWARE FOUNDATION. _Django Documentation._ Disponível em: https://docs.djangoproject.com/. Acesso em: 26 maio 2025.
+- MARTINS, G. A.; THEÓPHILO, C. R. _Metodologia da investigação científica para ciências sociais aplicadas._ 2. ed. São Paulo: Atlas, 2009.
+- SANTOS, Jhony; SILVA, Karleandro; FARIAS, Lucas; CARLOS, Rian; GAIA, Washington. _Sistema de Postos de Combustíveis._ Universidade Federal de Alagoas, Campus Arapiraca — SEDE, 2025. Disponível em: https://github.com/washingmg/Gestao-Posto-Combustivel. Acesso em: 27 maio 2025.
 
 
 ---
