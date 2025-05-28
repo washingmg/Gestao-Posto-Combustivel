@@ -1,18 +1,17 @@
-# gestaoPostoCombustivel/models.py
+
 from django.db import models
 
-# Constantes de CHOICES (opções para campos)
+
 BOMBA_IDENTIFICADORES = [
     ('A', 'Bomba A'), ('B', 'Bomba B'),
     ('C', 'Bomba C'), ('D', 'Bomba D'),
 ]
 TIPO_COMBUSTIVEL_CHOICES = [
     ('etanol', 'Etanol'),
-    ('diesel_comum', 'Diesel'), # Diesel Comum
-    ('gasolina_comum', 'Gasolina Comum'), # Gasolina Comum
+    ('diesel_comum', 'Diesel'), 
+    ('gasolina_comum', 'Gasolina Comum'), 
     ('gasolina_aditivada', 'Gasolina Aditivada'),
-    ('diesel_s10', 'Diesel S10'), # Exemplo de outro tipo
-    # Adicione outros tipos conforme sua necessidade
+    ('diesel_s10', 'Diesel S10'), 
 ]
 PAGAMENTO_CHOICES = [
     ('credito', 'Cartão de Crédito'),
@@ -27,7 +26,7 @@ class PrecoCombustivel(models.Model):
     """
     id_combustivel = models.CharField(
         max_length=20,
-        choices=TIPO_COMBUSTIVEL_CHOICES, # Os valores aqui ('etanol', 'gasolina') serão as chaves
+        choices=TIPO_COMBUSTIVEL_CHOICES, 
         unique=True,
         primary_key=True
     )
@@ -52,13 +51,12 @@ class Bomba(models.Model):
         unique=True,
         primary_key=True
     )
-    # Define quais combustíveis esta bomba específica pode dispensar.
+ 
     combustiveis_disponiveis = models.ManyToManyField(
         PrecoCombustivel,
         related_name='bombas_que_dispensam'
     )
-    # Ex: localizacao = models.CharField(max_length=50, blank=True, null=True)
-
+ 
     def __str__(self):
         return self.get_id_bomba_display()
 
@@ -68,10 +66,10 @@ class Tanque(models.Model):
     Representa um tanque de armazenamento para um tipo específico de combustível.
     Este modelo substitui o antigo 'Estoque'.
     """
-    # Cada tipo de combustível tem seu próprio tanque principal de armazenamento.
+    
     combustivel = models.OneToOneField(
         PrecoCombustivel,
-        on_delete=models.PROTECT, # Não permite deletar um tipo de combustível se ele tem um tanque.
+        on_delete=models.PROTECT, 
         primary_key=True
     )
     quantidade_disponivel = models.DecimalField(max_digits=10, decimal_places=2)
@@ -106,12 +104,3 @@ class Venda(models.Model):
                 f"{self.combustivel.get_id_combustivel_display()} - {self.quantidade}L - R${self.valor} - "
                 f"{self.data.strftime('%d/%m/%Y %H:%M')}")
 
-# Modelo para Reabastecimentos (sugestão para o futuro, pode adicionar depois)
-# class ReabastecimentoTanque(models.Model):
-#     tanque = models.ForeignKey(Tanque, on_delete=models.CASCADE)
-#     quantidade_adicionada = models.DecimalField(max_digits=10, decimal_places=2)
-#     data_reabastecimento = models.DateTimeField(auto_now_add=True)
-#     # ... outros campos como fornecedor, nota_fiscal, etc.
-#
-#     def __str__(self):
-#         return f"Reabastecimento {self.tanque.combustivel.get_id_combustivel_display()} - {self.quantidade_adicionada}L em {self.data_reabastecimento.strftime('%d/%m/%Y')}"
