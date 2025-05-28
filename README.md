@@ -60,6 +60,11 @@ A estrutura do projeto segue o padrão Django e está organizada com base na arq
 
 A seguir, estão representações visuais das telas desenvolvidas para o sistema. Certifique-se de que as imagens estejam salvas na pasta `/imagens/` do repositório:
 
+### 🛢️ Gerenciamento de Combustível
+
+![Tela de Gerenciamento de Combustível](imagens/TelaGerenciamentoDeCombustível.png)  
+*Figura 4 - Tela de Gerenciamento de Combustível*
+
 ### 🔄 Reabastecer
 
 ![Tela de Reabastecimento](imagens/TelaReabastecimento.png)  
@@ -67,12 +72,12 @@ A seguir, estão representações visuais das telas desenvolvidas para o sistema
 
 ### 📊 Relatório
 
-![Tela de Relatório](imagens/relatorio.png)  
+![Tela de Relatório](imagens/TelaRelatóriodeVendas.png)  
 *Figura 2 - Tela de Relatório*
 
 ### ⛽ Vendas
 
-![Tela de Vendas](imagens/vendas.png)  
+![Tela de Vendas](imagens/TelaVendas.png)  
 *Figura 3 - Tela de Vendas*
 
 ---
