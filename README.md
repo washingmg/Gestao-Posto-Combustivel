@@ -43,7 +43,7 @@ O sistema foi desenvolvido com base nos princípios da arquitetura MVT, cuja abo
 | Gerenciador de Pacotes | pip                                      |
 | Sistema Operacional    | Compatível com Windows e Linux           |
 
-      python, JS (node.js) nas versões mais atuais e Django na versão 5.2.1
+      python, na versão mais atual e Django na versão 5.2.1
 ---
 
 ## 👨‍💻 Comando para rodar o código
