@@ -1,0 +1,7 @@
+*.py linguist-detectable=false
+*.pyc linguist-detectable=false
+*.pyo linguist-detectable=false
+*.pyd linguist-detectable=false
+
+.venv/* linguist-documentation=false
+__pycache__/* linguist-documentation=false
