@@ -1,6 +1,21 @@
+*.py linguist-detectable=false
 *.pyc linguist-detectable=false
 *.pyo linguist-detectable=false
 *.pyd linguist-detectable=false
 
-.venv/* linguist-documentation=false
-__pycache__/* linguist-documentation=false
+gestaoPostoCombustivel/__init__.py linguist-detectable=true
+gestaoPostoCombustivel/admin.py linguist-detectable=true
+gestaoPostoCombustivel/apps.py linguist-detectable=true
+gestaoPostoCombustivel/models.py linguist-detectable=true
+gestaoPostoCombustivel/tests.py linguist-detectable=true
+gestaoPostoCombustivel/urls.py linguist-detectable=true
+gestaoPostoCombustivel/views.py linguist-detectable=true
+
+setup/__init__.py linguist-detectable=true
+setup/settings.py linguist-detectable=true
+setup/urls.py linguist-detectable=true
+setup/wsgi.py linguist-detectable=true
+
+.venv/** linguist-documentation=false
+__pycache__/** linguist-documentation=false
+migrations/** linguist-documentation=false
