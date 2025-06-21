@@ -102,8 +102,6 @@ Utilizamos o framework **Scrum** com o auxílio das ferramentas:
 
 ---
 
-Aqui estão os colaboradores formatados como links clicáveis:
-
 ### 🤝 Colaboradores
 
 - [@washingmg](https://github.com/washingmg)
@@ -113,4 +111,3 @@ Aqui estão os colaboradores formatados como links clicáveis:
 - [@rian-carlos-arapiraca](https://github.com/rian-carlos-arapiraca)
 - 
 ---
-
