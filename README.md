@@ -109,5 +109,4 @@ Utilizamos o framework **Scrum** com o auxílio das ferramentas:
 - [@jhonywsantos](https://github.com/jhonywsantos)
 - [@LucaRosendo](https://github.com/LucaRosendo)
 - [@rian-carlos-arapiraca](https://github.com/rian-carlos-arapiraca)
-- 
 ---
